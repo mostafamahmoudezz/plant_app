@@ -49,7 +49,7 @@ class SignUp extends StatelessWidget {
                     height: 40,
                     child: TextFormField(
                       decoration: InputDecoration(
-                        //contentPadding: EdgeInsets.all(10),
+                        contentPadding: EdgeInsets.all(10),
                         border: OutlineInputBorder(),
                       ),
                     ),
