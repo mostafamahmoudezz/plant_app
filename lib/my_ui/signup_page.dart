@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plant_app/my_ui/home_page.dart';
+
 
 class SignUp extends StatelessWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -49,7 +51,7 @@ class SignUp extends StatelessWidget {
                     height: 40,
                     child: TextFormField(
                       decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10),
+                        //contentPadding: EdgeInsets.all(10),
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -106,7 +108,7 @@ class SignUp extends StatelessWidget {
                         borderRadius: BorderRadius.circular(7.0),
                       ))),
                   onPressed: () {
-                    debugPrint('Received click');
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));;
                   },
                   child: const Text("Login",
                       style: TextStyle(color: Colors.white)),

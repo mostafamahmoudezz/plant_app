@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/my_ui/auth_page.dart';
+import 'package:plant_app/my_ui/home_page.dart';
 import 'my_ui/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  final HomePage homePage = new HomePage();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

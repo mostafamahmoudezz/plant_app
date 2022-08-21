@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plant_app/my_ui/home_page.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -50,7 +51,8 @@ class LoginPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(7.0),
                       ))),
                   onPressed: () {
-                    debugPrint('Received click');
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
+                    ;
                   },
                   child: const Text("Login",
                       style: TextStyle(color: Colors.white)),
