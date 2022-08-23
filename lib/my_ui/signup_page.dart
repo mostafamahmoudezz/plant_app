@@ -170,8 +170,9 @@ class SignUp extends StatelessWidget {
                           borderRadius: BorderRadius.circular(7.0),
                         ))),
                     onPressed: () {
-                      _formKey.currentState?.validate() == true?
-                          signUpAuth(): "";
+                      _formKey.currentState?.validate() == true
+                          ? signUpAuth()
+                          : "";
                       /*Navigator.of(context).push(
                           MaterialPageRoute(builder: (context) => HomePage()));*/
                     },
@@ -236,8 +237,8 @@ class SignUp extends StatelessWidget {
           .toLowerCase()
           .contains("success")) {
         print(response.body);
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => HomePage()));
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => HomePage()));
       } else {
         return showDialog<void>(
           context: context,
@@ -252,7 +253,6 @@ class SignUp extends StatelessWidget {
                     SizedBox(
                       height: 10,
                     ),
-
                   ],
                 ),
               ),

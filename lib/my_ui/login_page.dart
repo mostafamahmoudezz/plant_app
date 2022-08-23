@@ -13,6 +13,7 @@ class LoginPage extends StatefulWidget {
 
 class _loginpage extends State<LoginPage> {
   Map<String, dynamic> form = {"password": null, "email": null};
+
   //Map<String, dynamic> otp = {"message": null};
 
   final _formKey = GlobalKey<FormState>();
@@ -85,12 +86,12 @@ class _loginpage extends State<LoginPage> {
                           borderRadius: BorderRadius.circular(7.0),
                         ))),
                     onPressed: () {
-                      _formKey.currentState?.validate() == true ?
+                      _formKey.currentState?.validate() == true
+                          ? loginAuth()
+                          : "";
 
-                      loginAuth() : "";
-
-                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));
-
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) => HomePage()));
                     },
                     child: const Text("Login",
                         style: TextStyle(color: Colors.white)),
@@ -187,10 +188,11 @@ class _loginpage extends State<LoginPage> {
                                   <String, dynamic>{"email": form['email']}),
                             )
                             .then((response) => print(response.body));
-                        onSaved: (value) {
+                        onSaved:
+                        (value) {
                           form['message'] = value;
                         };
-                       /* AlertDialog(
+                        /* AlertDialog(
                           title: const Text('Forget password'),
                           content: SingleChildScrollView(
                             child: ListBody(

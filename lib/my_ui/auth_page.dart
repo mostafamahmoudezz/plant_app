@@ -4,9 +4,9 @@ import 'package:plant_app/my_ui/login_page.dart';
 import 'package:plant_app/my_ui/signup_page.dart';
 
 class AuthPage extends StatelessWidget {
+  final LoginPage loginPage = new LoginPage();
+  final SignUp signUp = new SignUp();
 
-final LoginPage loginPage = new LoginPage();
-final SignUp signUp = new SignUp();
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -31,18 +31,29 @@ final SignUp signUp = new SignUp();
               ),
             ),
             Container(
-              child: TabBar(indicatorSize: TabBarIndicatorSize.label,
-
-                tabs:
-                [Tab(child: Text('Sign up',style: TextStyle(color: Color.fromRGBO(26, 188, 0, 1)),),),
-                  Tab(child: Text('Login',style: TextStyle(color: Color.fromRGBO(26, 188, 0, 1)),),)],
+              child: TabBar(
+                indicatorSize: TabBarIndicatorSize.label,
+                tabs: [
+                  Tab(
+                    child: Text(
+                      'Sign up',
+                      style: TextStyle(color: Color.fromRGBO(26, 188, 0, 1)),
+                    ),
+                  ),
+                  Tab(
+                    child: Text(
+                      'Login',
+                      style: TextStyle(color: Color.fromRGBO(26, 188, 0, 1)),
+                    ),
+                  )
+                ],
               ),
             ),
             Expanded(
               child: Container(
                 child: IntrinsicHeight(
                   child: TabBarView(
-                    children: [signUp,loginPage ],
+                    children: [signUp, loginPage],
                   ),
                 ),
               ),
