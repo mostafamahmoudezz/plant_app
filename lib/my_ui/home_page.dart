@@ -15,7 +15,8 @@ class HomePage extends StatelessWidget {
             child: Container(padding: EdgeInsets.all(40),
               child: SvgPicture.asset("assets/Group 1000003301.svg"),
             ),
-          )
+          ),
+          Text("Home page "),
         ],
       ),
     );

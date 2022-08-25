@@ -14,6 +14,12 @@ class LoginPage extends StatefulWidget {
 class _loginpage extends State<LoginPage> {
   Map<String, dynamic> form = {"password": null, "email": null};
 
+  bool _passwordVisible = false;
+  @override
+  void initState() {
+    _passwordVisible = false;
+  }
+
   //Map<String, dynamic> otp = {"message": null};
 
   final _formKey = GlobalKey<FormState>();
@@ -21,117 +27,130 @@ class _loginpage extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 30),
+      padding: EdgeInsets.symmetric(horizontal: 30,vertical: 30),
       child: Form(
         key: _formKey,
-        child: ListView(children: [
-          Column(
-            children: [
-              Container(
-                  alignment: Alignment.topLeft,
-                  child: Text("Email",
-                      style:
-                          TextStyle(color: Color.fromRGBO(111, 111, 111, 1)))),
-              TextFormField(
-                validator: (value) {
-                  if (value != null &&
-                      (value.isEmpty || !value.contains("@"))) {
-                    return 'Email is not valid';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  form['email'] = value;
-                },
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10),
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter an Email',
-                ),
-              ),
-              Container(
-                  alignment: Alignment.topLeft,
-                  margin: EdgeInsets.only(top: 30),
-                  child: Text("Password",
-                      style:
-                          TextStyle(color: Color.fromRGBO(111, 111, 111, 1)))),
-              TextFormField(
-                validator: (value) {
-                  if (value != null && (value.isEmpty)) {
-                    return 'Enter your password ';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  form['password'] = value;
-                },
-                decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10),
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter a Password',
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 25),
-                child: SizedBox(
-                  width: 345,
-                  height: 45,
-                  child: OutlinedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(
-                            Color.fromRGBO(26, 188, 0, 1)),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(7.0),
-                        ))),
-                    onPressed: () {
-                      _formKey.currentState?.validate() == true
-                          ? loginAuth()
-                          : "";
-
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => HomePage()));
-                    },
-                    child: const Text("Login",
-                        style: TextStyle(color: Colors.white)),
+        child: SingleChildScrollView(child:
+            Column(
+              children: [
+                Container(
+                    alignment: Alignment.topLeft,
+                    child: Text("Email",
+                        style:
+                            TextStyle(color: Color.fromRGBO(111, 111, 111, 1)))),
+                TextFormField(
+                  validator: (value) {
+                    if (value != null &&
+                        (value.isEmpty || !value.contains("@"))) {
+                      return 'Email is not valid';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    form['email'] = value;
+                  },
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10),
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter an Email',
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: Row(children: <Widget>[
-                  Expanded(
-                      child: Divider(color: Color.fromRGBO(151, 151, 151, 1))),
-                  Text("or continue with",
-                      style:
-                          TextStyle(color: Color.fromRGBO(151, 151, 151, 1))),
-                  Expanded(
-                      child: Divider(color: Color.fromRGBO(151, 151, 151, 1))),
-                ]),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 120),
-                child: Row(
-                  children: [
-                    IconButton(
-                      icon: SvgPicture.asset(
-                        "assets/google.svg",
+                Container(
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.only(top: 30),
+                    child: Text("Password",
+                        style:
+                            TextStyle(color: Color.fromRGBO(111, 111, 111, 1)))),
+                TextFormField(
+                  obscureText: !_passwordVisible,
+                  validator: (value) {
+                    if (value != null && (value.isEmpty)) {
+                      return 'Enter your password ';
+                    }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    form['password'] = value;
+                  },
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        // Based on passwordVisible state choose the icon
+                        _passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: Theme.of(context).primaryColorDark,
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        // Update the state i.e. toogle the state of passwordVisible variable
+                        setState(() {
+                          _passwordVisible = !_passwordVisible;
+                        });
+                      },
                     ),
-                    IconButton(
-                      icon: SvgPicture.asset(
-                        "assets/Facebook.svg",
-                      ),
-                      onPressed: () {},
-                    ),
-                  ],
+                    contentPadding: EdgeInsets.all(10),
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter a Password',
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ]),
+                Container(
+                  margin: EdgeInsets.only(top: 25),
+                  child: SizedBox(
+                    width: 345,
+                    height: 45,
+                    child: OutlinedButton(
+                      style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                              Color.fromRGBO(26, 188, 0, 1)),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(7.0),
+                          ))),
+                      onPressed: () {
+                        _formKey.currentState?.validate() == true
+                            ? loginAuth()
+                            : "";
+                      },
+                      child: const Text("Login",
+                          style: TextStyle(color: Colors.white)),
+                    ),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: Row(children: <Widget>[
+                    Expanded(
+                        child: Divider(color: Color.fromRGBO(151, 151, 151, 1))),
+                    Text("or continue with",
+                        style:
+                            TextStyle(color: Color.fromRGBO(151, 151, 151, 1))),
+                    Expanded(
+                        child: Divider(color: Color.fromRGBO(151, 151, 151, 1))),
+                  ]),
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 120),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: SvgPicture.asset(
+                          "assets/google.svg",
+                        ),
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: SvgPicture.asset(
+                          "assets/Facebook.svg",
+                        ),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                ),
+
+         ]),
+        ),
       ),
     );
   }
@@ -153,7 +172,8 @@ class _loginpage extends State<LoginPage> {
           .toString()
           .toLowerCase()
           .contains("success")) {
-        print(response.body);
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => HomePage()));
       } else {
         return showDialog<void>(
           context: context,
@@ -192,7 +212,7 @@ class _loginpage extends State<LoginPage> {
                         (value) {
                           form['message'] = value;
                         };
-                        /* AlertDialog(
+                        AlertDialog(
                           title: const Text('Forget password'),
                           content: SingleChildScrollView(
                             child: ListBody(
@@ -204,7 +224,7 @@ class _loginpage extends State<LoginPage> {
                               ],
                             ),
                           ),
-                        );*/
+                        );
                       },
                     ),
                   ],

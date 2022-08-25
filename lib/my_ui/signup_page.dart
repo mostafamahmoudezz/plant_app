@@ -1,10 +1,22 @@
+
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_app/my_ui/home_page.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class SignUp extends StatelessWidget {
+class SignUp extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _signupPage();
+  }
+}
+class _signupPage extends State<SignUp> {
+  final TextEditingController _pass = TextEditingController();
+  final TextEditingController _confirmPass = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
   Map<String, dynamic> data = {
     "firstName": null,
@@ -13,7 +25,7 @@ class SignUp extends StatelessWidget {
     "password": null,
   };
 
-  get context => null;
+
 
   @override
   Widget build(BuildContext context) {
@@ -119,8 +131,9 @@ class SignUp extends StatelessWidget {
                       style:
                           TextStyle(color: Color.fromRGBO(111, 111, 111, 1)))),
               TextFormField(
+                controller: _pass,
                 validator: (value) {
-                  if (value != null && (value.isEmpty)) {
+                  if (value != null && (value.length < 8)) {
                     return 'Enter Strong Password ';
                   }
                   return null;
@@ -141,9 +154,10 @@ class SignUp extends StatelessWidget {
                       style:
                           TextStyle(color: Color.fromRGBO(111, 111, 111, 1)))),
               TextFormField(
+                controller: _confirmPass,
                 validator: (value) {
-                  if (value != null && (value.isEmpty)) {
-                    return 'Re-enter your password ';
+                  if (value != null && (value != _pass.text)) {
+                    return 'Password does not match ';
                   }
                   return null;
                 },
@@ -245,17 +259,25 @@ class SignUp extends StatelessWidget {
           barrierDismissible: false, // user must tap button!
           builder: (BuildContext context) {
             return AlertDialog(
-              title: const Text('Failed to signUp'),
+              title: const Text('Failed to Signup'),
               content: SingleChildScrollView(
                 child: ListBody(
                   children: <Widget>[
-                    Text('wrong email or password'),
+                    Text('Please enter valid Email and Password'),
                     SizedBox(
                       height: 10,
                     ),
                   ],
                 ),
               ),
+              actions: <Widget>[
+                TextButton(
+                  child: const Text('ok'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
             );
           },
         );
